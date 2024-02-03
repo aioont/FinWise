@@ -1,0 +1,70 @@
+<!-- portfolio.html -->
+
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    @media only screen and (max-width: 768px) {
+    /* Add classes or IDs to the fields you want to hide */
+    .hide-on-small-screen {
+        display: none;
+    }
+}
+</style>
+<section id="portfolio">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center mb-4">Your Investment Portfolio</h2>
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" >#</th>
+                                        <th scope="col" class="hide-on-small-screen">Investment Name</th>
+                                        <th scope="col">Symbol</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Purchase Price</th>
+                                        <th scope="col">Current Price</th>
+                                        <th scope="col">Total Value</th>
+                                        <th scope="col">Edit</th>
+                                        <th scope="col">Remove</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for investment in investments %}
+                                        <tr>
+                                            <th scope="row">{{ forloop.counter }}</th>
+                                            <td>{{ investment.name }}</td>
+                                            <td>{{ investment.symbol }}</td>
+                                            <td>{{ investment.quantity }}</td>
+                                            <td>{{ investment.purchase_price }}</td>
+                                            <td>{{ investment.current_price|default:"N/A" }}</td>
+                                            <td>{{ investment.total_price }}</td>
+
+                                            <td><a href="{% url 'update_investment' investment_id=investment.id %}">Update</a></td>
+                                            <td><a href="{% url 'remove_investment' investment_id=investment.id %}">Remove</a></td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                                
+                            </table>
+                        </div>
+
+                        <div class="text-center mt-3">
+                            <h4 style="color: green">Total Portfolio Value: {{ portfolio_value }}</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4 text-center">
+                    <a href="{% url 'add_investment' %}" class="btn btn-primary">Add New Investment</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

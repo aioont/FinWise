@@ -1,126 +1,99 @@
-
-    <nav class="navbar navbar-light fixed-top  bg-light  flex-md-nowrap p-0">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">FinWise</a>
-       <ul class="navbar-nav px-3 ">
+<nav class="navbar navbar-light fixed-top bg-light flex-md-nowrap p-0">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">FinWise</a>
+    <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-
-<span class="mobile-links" style="display:none">
-            <a  type="submit" class="mobile-up" href="{% url 'income' %}">My income
+            <span class="mobile-links" style="display:none">
+                <!-- Your mobile links here -->
+            </span>
+            <a>
+                <button id="darkModeToggle" class="btn btn-dark mr-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-brightness-high-fill" viewBox="0 0 16 16">
+                        <path d="M12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"/>
+                    </svg>
+                </button>
+                <span class="pr-3">{{ request.user.username }}</span>
+                <small class="pr-3 text-sm text-monospace">({{ request.user.email }})</small>
             </a>
-             <a>
-            <a type="submit" class="mobile-up" href="{% url 'expenses' %}">
-                 My Expenses
-            </a>
-          <a>
-
-            <a  type="submit" class="mobile-up" href="{% url 'income' %}">income
-            </a>
-
-            <a type="submit" class="mobile-up" href="{% url 'expenses' %}">
-                 Expenses
-            </a>
- <a  type="submit" class="mobile-up" href="{% url 'income-summary' %}">income Summary
-            </a>
-
-            <a type="submit" class="mobile-up" href="{% url 'expenses-summary' %}">
-                 Expense Summary
-            </a>
-
-
-
-</span>
-
-
-            <a> <span class="pr-3">{{ request.user.username }}</span>
-            <small class="pr-3  text-sm text-monospace">({{ request.user.email }})</small></a>
-             <a>
-           <form action="{% url 'logout' %}" method="POST" style="display:inline">
-            {% csrf_token %}
-           <i class="fas icon fa-sign-out-alt"></i>
-            <input type="submit" class="" value='Logout' href="{% url 'login' %}">
-            </form>
+            <a>
+                <form action="{% url 'logout' %}" method="POST" style="display:inline">
+                    {% csrf_token %}
+                    <i class="fas icon fa-sign-out-alt"></i>
+                    <input type="submit" class="" value='Logout' href="{% url 'login' %}">
+                </form>
             </a>
         </li>
-      </ul>
-    </nav>
+    </ul>
+</nav>
 
-    <div class="container-fluid">
-      <div class="row">
-        <nav class="col-md-2 d-none d-md-block sidebar  bg-light">
-          <div class="sidebar-sticky">
-            <ul class="nav flex-column">
- <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-              <span>Home</span>
-              <a class="d-flex align-items-center text-muted" href="#">
-                <i class="fa fa-home"></i>
-              </a>
-            </h6>
-
-                <li class="nav-item" >
-
-               <a href="{% url 'income' %}" class="nav-link  text-dark"><i class="fa fa-file"></i>   My income</a>
-
-              </li>
-               <li class="nav-item">
-
-                 <a href="{% url 'expenses' %}" class="nav-link  text-dark">    <i class="fa fa-money-bill"></i>  My Expenses</a>
-
-              </li>
-
-
-
-
-            </ul>
-
-
-            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-              <span>Summary</span>
-              <a class="d-flex align-items-center text-muted" href="#">
-                <i class="fa fa-book"></i>
-              </a>
-            </h6>
-            <ul class="nav flex-column mb-2">
-              <li class="nav-item">
-                <a class="nav-link  text-dark" href="{% url 'expenses-summary' %}" >
-                  <i class="fa fa-chart-line"></i>
-                  Expenses Summary
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link  text-dark" href="{% url 'income-summary' %}">
-                  <i class="fa fa-chart-line"></i>
-                  Income Summary
-                </a>
-              </li>
-
-            </ul>
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block sidebar bg-light rounded mt-4" style="background-color: #d8e6ff !important; padding: 15px;">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    <!-- Home section -->
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        <a href="{% url 'homepage' %}">Home</a>
+                        <a class="d-flex align-items-center text-muted" href="{% url 'homepage' %}">
+                            <i class="fa fa-home"></i>
+                        </a>
+                    </h6>
+                    <li class="nav-item">
+                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                            <a href="{% url 'income' %}">My income</a>
+                            <a href="" class="d-flex align-items-center text-muted">
+                                <i class="fa fa-file"></i> 
+                            </a>
+                        </h6>
+                    </li>
+                    <li class="nav-item">
+                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                            <a href="{% url 'expenses' %}">My Expenses</a>
+                            <a href="" class="d-flex align-items-center text-muted">
+                                <i class="fa fa-money-bill"></i> 
+                            </a>
+                        </h6>
+                    </li>
 
 
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        <span>Summary</span>
+                        <hr>
+                        <a class="d-flex align-items-center text-muted" href="#">
+                            <i class="fa fa-book"></i>
+                        </a>
+                    </h6>
+                    <ul class="nav flex-column mb-2">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="{% url 'expenses-summary' %}">
+                                <i class="fa fa-chart-line"></i> Expenses Summary
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="{% url 'income-summary' %}">
+                                <i class="fa fa-chart-line"></i> Income Summary
+                            </a>
+                        </li>
+                    </ul>
 
-              <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-              <span>Settings</span>
-              <a class="d-flex align-items-center text-muted" href="#">
-                <i class="fa fa-street-view"></i>
-              </a>
-            </h6>
-            <ul class="nav flex-column mb-2">
-              <li class="nav-item">
-                <a class="nav-link  text-dark" href="{% url 'general-settings' %}" >
-                  <i class="fa fa-chart-line"></i>
-                  General
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link  text-dark" href="{% url 'general-settings' %}">
-                  <i class="fa fa-chart-line"></i>
-                   Account
-                </a>
-              </li>
-
-            </ul>
-
-
-
-
-          </div>
+                    <!-- Settings section -->
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        <span>Settings</span>
+                        <a class="d-flex align-items-center text-muted" href="#">
+                            <i class="fa fa-street-view"></i>
+                        </a>
+                    </h6>
+                    <ul class="nav flex-column mb-2">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="{% url 'general-settings' %}">
+                                <i class="fa fa-chart-line"></i> General
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="{% url 'general-settings' %}">
+                                <i class="fa fa-chart-line"></i> Account
+                            </a>
+                        </li>
+                    </ul>
+                </ul>
+            </div>
         </nav>

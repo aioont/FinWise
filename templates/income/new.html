@@ -38,14 +38,11 @@
 
                   </select>
            </div>
-                <div class="form-group">
-                  <label for="source">Source</label>
-                  <select name="source" class="form-control" id="source">
-          {% for source in  sources%}
-           <option value="{{source.name}}">{{source.name}}</option>
-          {% endfor %}
-                  </select>
-           </div>
+          <div class="form-group">
+              <label for="source">Source:</label>
+              <input type="text" name="source" class="form-control" id="source" value="{{ values.source }}">
+          </div>
+              
           <div class="form-group">
             <label for="description"  class="col-form-label">Description:</label>
             <textarea class="form-control" name="description" id="description">{{values.description}} </textarea>

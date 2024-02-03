@@ -1,4 +1,5 @@
 import csv
+from django.utils.datastructures import MultiValueDictKeyError
 
 import xlwt
 from django.shortcuts import render, redirect
@@ -20,6 +21,8 @@ from io import BytesIO
 from xhtml2pdf import pisa
 from django.template.loader import get_template
 from django.http import HttpResponse
+from django.utils import timezone
+
 
 
 def index(request):
@@ -37,63 +40,77 @@ def search_income(request):
     data = list(income.values())
     return JsonResponse(data, safe=False)
 
-
 @login_required(login_url='/authentication/login')
 def income(request):
     if not Setting.objects.filter(user=request.user).exists():
         messages.info(request, 'Please choose your preferred currency')
         return redirect('general-settings')
+    
     sources = Source.objects.all()
-    income = Income.objects.filter(owner=request.user)
-    paginator = Paginator(income, 5)  # Show 7 items per page.
+    income_objects = Income.objects.filter(owner=request.user)
+    
+    paginator = Paginator(income_objects, 5)  # Show 5 items per page.
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+    
     context = {
         'currency': Setting.objects.get(user=request.user).currency.split('-')[0],
         'sources': sources,
-        'income': income,
+        'income': income_objects,
         'page_obj': page_obj,
     }
+    
     return render(request=request, template_name='income/index.html', context=context)
-
 
 @login_required(login_url='/authentication/login')
 def income_add(request):
     sources = Source.objects.all()
+    
     if request.method == 'GET':
         context = {
             'settings': Setting.objects.get(user=request.user),
-            'sources': sources}
+            'sources': sources
+        }
         return render(request=request, template_name='income/new.html', context=context)
+    
     context = {
         'values': request.POST,
         'sources': sources,
     }
-    amount = request.POST['amount']
-    description = request.POST['description']
 
-    income_date = request.POST['in_date']
-    source = request.POST['source']
+    try:
+        amount = request.POST['amount']
+        description = request.POST['description']
+        income_date = request.POST['in_date']  # Use 'in_date' instead of 'income_date'
+        source = request.POST['source']
+    except MultiValueDictKeyError as e:
+        print(f"MultiValueDictKeyError: {e}")
+        print(request.POST)  # Print the entire POST data for debugging
+        messages.error(request, 'Invalid form data. Please check the fields.')
+        return render(request=request, template_name='income/new.html', context=context)
+
 
     if not amount:
-        messages.error(request,  'Amount is required')
+        messages.error(request, 'Amount is required')
         return render(request=request, template_name='income/new.html', context=context)
+    
     if not source:
-        messages.error(request,  'Income Source is required')
+        messages.error(request, 'Income Source is required')
         return render(request=request, template_name='income/new.html', context=context)
 
     if not income_date:
-        messages.error(request,  'Date is required')
+        messages.error(request, 'Date is required')
         return render(request=request, template_name='income/new.html', context=context)
 
     income = Income.objects.create(
         amount=amount, description=description, source=source, income_date=income_date, owner=request.user)
 
     if income:
-        messages.success(request,  'Income was submitted successfully')
+        messages.success(request, 'Income was submitted successfully')
         return redirect('income')
 
     return render(request=request, template_name='income/index.html')
+
 
 
 @login_required(login_url='/authentication/login')
@@ -105,33 +122,42 @@ def income_edit(request, id):
         'sources': sources,
         'income': income,
     }
+    
     if request.method == 'GET':
         return render(request, 'income/edit.html', context)
+
     amount = request.POST['amount']
     description = request.POST['description']
     source = request.POST['source']
+
     if not source:
-        messages.error(request,  'source is required')
+        messages.error(request, 'Source is required')
         return render(request, 'income/edit.html', context)
+
     if not amount:
-        messages.error(request,  'Amount is required')
+        messages.error(request, 'Amount is required')
         return render(request, 'income/edit.html', context)
+
     income.amount = amount
     income.description = description
     income.source = source
     income.save()
-    messages.success(request,  'Income updated successfully')
+
+    messages.success(request, 'Income updated successfully')
     return redirect('income')
 
 
 @login_required(login_url='/authentication/login')
-def income_delete(request):
-    income = Income.objects.all_income()
-    context = {
-        'income': income
-    }
-    return render('income/index.html', context)
+def income_delete(request, id):
+    income = Income.objects.get(pk=id)
+    
+    if request.method == 'POST':
+        income.delete()
+        messages.success(request, 'Income deleted successfully')
+        return redirect('income')
 
+    context = {'income': income}
+    return render(request, 'income/index.html', context)
 
 @login_required(login_url='/authentication/login')
 def income_summary(request):
@@ -364,7 +390,7 @@ def export_csv(request):
 
 def export_excel(request):
     response = HttpResponse(content_type='application/ms-excel')
-    response['Content-Disposition'] = 'attachment; filename=Expenses'+str(datetime.datetime.now())+'.xls'
+    response['Content-Disposition'] = 'attachment; filename=Expenses' + str(timezone.now()) + '.xls'
 
     wb = xlwt.Workbook(encoding='utf-8')
     ws = wb.add_sheet('Income')
@@ -372,20 +398,20 @@ def export_excel(request):
     font_style = xlwt.XFStyle()
     font_style.font.bold = True
 
-    colums = ['Amount', 'Category', 'Date']
+    columns = ['Amount', 'Category', 'Date']
 
-    for col_num in range(len(colums)):
-        ws.write(row_num, col_num, colums[col_num], font_style)
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num, columns[col_num], font_style)
 
     font_style = xlwt.XFStyle()
 
-    rows = Income.objects.filter(owner=request.user).values_list('amount', 'category', 'income_date')
+    incomes = Income.objects.filter(owner=request.user).values_list('amount', 'source', 'income_date')
 
-    for row in rows:
+    for income in incomes:
         row_num += 1
 
-        for col_num in range(len(row)):
-            ws.write(row_num, col_num, str(row[col_num]), font_style)
+        for col_num in range(len(income)):
+            ws.write(row_num, col_num, str(income[col_num]), font_style)
 
     wb.save(response)
     return response

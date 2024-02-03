@@ -220,3 +220,4 @@ class CompletePasswordChangeView(View):
             messages.add_message(
                 request, messages.ERROR, 'Something went wrong,you could not update your password')
             return render(request, 'authentication/change-password.html', context, status=401)
+

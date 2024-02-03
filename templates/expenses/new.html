@@ -40,20 +40,20 @@
 
                   </select>
            </div>
-                <div class="form-group">
-                  <label for="category">Category</label>
-                  <select name="category" class="form-control" id="category">
-          {% for category in  categories%}
-           <option name="category" value={{category.name}}>{{category.name}}</option>
-          {% endfor %}
-                  </select>
-           </div>
+           <div class="form-group">
+            <label for="category">Category: </label>
+            <input type="text" name="category" class="form-control" id="category" value="{{ values.category }}">
+          </div>
+
+
+  
+        
           <div class="form-group">
             <label for="name"  class="col-form-label">Description:</label>
             <textarea class="form-control" name="name" id="name"></textarea>
           </div>
-           <div class="form-group">
-            <label for="ex_date"  class="col-form-label">Date of Expense:</label>
+          <div class="form-group">
+            <label for="ex_date" class="col-form-label">Date of Expense:</label>
             <input type="date" class="form-control" name="ex_date" id="ex_date"/>
           </div>
 
@@ -66,4 +66,13 @@
 </div>
   </div>
 </section>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Get the current date in the format 'YYYY-MM-DD'
+    var today = new Date().toISOString().split('T')[0];
+
+    // Set the default value of the date input field to today's date
+    document.getElementById('ex_date').value = today;
+  });
+</script>
 {%endblock%}

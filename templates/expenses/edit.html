@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %} | Dashboard {% endblock %}
+{% block content %}
+
+<!-- Alerts -->
+
+<section id="dashboard" class="py-4">
+  <div class="container">
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'expenses' %}">Expenses</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Edit Expense</li>
+  </ol>
+</nav>
+
+<div>
+  <div  role="">
+      <div class="modal-header">
+          <h5 class="modal-title text-dark" id="exampleModal1">Edit Expense</h5>
+
+      </div>
+      <form action="{%url 'expense_edit' expense.id  %}" method="POST" autocomplete="off">
+          {% csrf_token%}
+          {% include 'partials/_alerts.html'%}
+          <div class="form-group">
+              <label for="amount" class="col-form-label">Amount:</label>
+              <input type="number" name="amount"  value={{values.amount}} class="form-control" id="amount">
+          </div>
+          <div class="form-group">
+              <label for="category">Category</label>
+              <select name="category" class="form-control" id="category">
+                  {% for category in  categories%}
+                  <option name="category">{{category.name}}</option>
+                  {% endfor %}
+              </select>
+          </div>
+          <div class="form-group">
+              <label for="name"  class="col-form-label">Description:</label>
+              <textarea class="form-control" name="name" id="name">{{values.name}}</textarea>
+          </div>
+          <div class="form-group">
+              <label for="date"  class="col-form-label">Date of Expense:</label>
+              <input type="date" class="form-control"  value={{values.date|date:'Y-m-d' }} name="date" id="date"></input>
+          </div>
+
+          <input type="submit" class="btn btn-primary" value="Submit">
+
+
+      </form>
+  </div>
+</div>
+  </div>
+</section>
+{%endblock%}

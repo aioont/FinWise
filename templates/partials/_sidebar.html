@@ -1,11 +1,11 @@
 
     <nav class="navbar navbar-light fixed-top  bg-light  flex-md-nowrap p-0">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">MY MONEY TRACKER</a>
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">FinWise</a>
        <ul class="navbar-nav px-3 ">
         <li class="nav-item text-nowrap">
 
 <span class="mobile-links" style="display:none">
-            <a  type="submit" class="mobile-up" href="">My income
+            <a  type="submit" class="mobile-up" href="{% url 'income' %}">My income
             </a>
              <a>
             <a type="submit" class="mobile-up" href="{% url 'expenses' %}">
@@ -13,16 +13,16 @@
             </a>
           <a>
 
-            <a  type="submit" class="mobile-up" href="">income
+            <a  type="submit" class="mobile-up" href="{% url 'income' %}">income
             </a>
 
             <a type="submit" class="mobile-up" href="{% url 'expenses' %}">
                  Expenses
             </a>
- <a  type="submit" class="mobile-up" href="">income Summary
+ <a  type="submit" class="mobile-up" href="{% url 'income-summary' %}">income Summary
             </a>
 
-            <a type="submit" class="mobile-up" href="">
+            <a type="submit" class="mobile-up" href="{% url 'expenses-summary' %}">
                  Expense Summary
             </a>
 
@@ -58,7 +58,7 @@
 
                 <li class="nav-item" >
 
-               <a href="" class="nav-link  text-dark"><i class="fa fa-file"></i>   My income</a>
+               <a href="{% url 'income' %}" class="nav-link  text-dark"><i class="fa fa-file"></i>   My income</a>
 
               </li>
                <li class="nav-item">
@@ -81,13 +81,13 @@
             </h6>
             <ul class="nav flex-column mb-2">
               <li class="nav-item">
-                <a class="nav-link  text-dark" href="" >
+                <a class="nav-link  text-dark" href="{% url 'expenses-summary' %}" >
                   <i class="fa fa-chart-line"></i>
                   Expenses Summary
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link  text-dark" href="">
+                <a class="nav-link  text-dark" href="{% url 'income-summary' %}">
                   <i class="fa fa-chart-line"></i>
                   Income Summary
                 </a>

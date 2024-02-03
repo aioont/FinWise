@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block title %} | New Expense {% endblock %}
+{% block content %}
+
+<!-- Alerts -->
+
+<section id="dashboard" class="py-4">
+  <div class="container">
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'expenses' %}">Expenses</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Add Expense</li>
+  </ol>
+</nav>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Expense</h5>
+      </div>
+      <div class="modal-body">
+            <form action="{%url 'expenses_add'%}" method="POST" autocomplete="off">
+              {% csrf_token%}
+{% include 'partials/_alerts.html'%}
+          <div class="form-group">
+            <label for="amount" class="col-form-label">Amount:</label>
+            <input type="number" name="amount" class="form-control" id="amount" value={{values.amount}}>
+          </div>
+               <div class="form-group">
+                  <label for="exampleFormControlSelect1">Currency</label>
+                  <select class="form-control" name="currency" id="currency" {% if settings.currency%}disabled>
+                    <option name="currency"  selected  value={{settings.currency}}>{{settings.currency}}</option>
+
+
+{% else %}
+ {% for currency in  currencies%}
+                    <option name="currency"   value={{currency.name}}>{{currency.name}} - {{currency.value}} </option>
+                    {% endfor %}
+
+
+                  {% endif %}>
+
+                  </select>
+           </div>
+                <div class="form-group">
+                  <label for="category">Category</label>
+                  <select name="category" class="form-control" id="category">
+          {% for category in  categories%}
+           <option name="category" value={{category.name}}>{{category.name}}</option>
+          {% endfor %}
+                  </select>
+           </div>
+          <div class="form-group">
+            <label for="name"  class="col-form-label">Description:</label>
+            <textarea class="form-control" name="name" id="name"></textarea>
+          </div>
+           <div class="form-group">
+            <label for="ex_date"  class="col-form-label">Date of Expense:</label>
+            <input type="date" class="form-control" name="ex_date" id="ex_date"/>
+          </div>
+
+        <input type="submit" class="btn btn-primary" value="Submit">
+      </div>
+
+
+        </form>
+
+</div>
+  </div>
+</section>
+{%endblock%}

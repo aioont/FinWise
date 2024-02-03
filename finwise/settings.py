@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'expenses',
-    # 'income',
+    'income',
     'settings',
     'authentication',
     'six',

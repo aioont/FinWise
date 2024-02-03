@@ -16,6 +16,13 @@ from validate_email import validate_email
 import json
 
 # Create your views here.
+def homepage(request):
+    # You can add any necessary logic or data retrieval here
+    context = {
+        'welcome_message': 'Welcome to our Finwise!',
+    }
+    return render(request, 'homepage.html', context)
+
 class EmailThread(threading.Thread):
     def __init__(self, subject, html_content, from_email, recipient_list):
         self.subject = subject

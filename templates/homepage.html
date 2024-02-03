@@ -1,0 +1,321 @@
+{% load static %}
+
+<!-- /*
+* Template Name: Financing
+* Template Author: Untree.co
+* Template URI: https://untree.co/
+* License: https://creativecommons.org/licenses/by/3.0/
+*/ -->
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="Untree.co">
+	<link rel="shortcut icon" href="favicon.png">
+
+	<meta name="description" content="" />
+	<meta name="keywords" content="bootstrap, bootstrap5" />
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="{% static 'fonts/icomoon/style.css' %}">
+	<link rel="stylesheet" href="{% static 'fonts/flaticon/font/flaticon.css' %}">
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+	<link rel="stylesheet" href="{% static 'css2/tiny-slider.css' %}">
+
+	<link rel="stylesheet" href="{% static 'css2/aos.css' %}">
+	<link rel="stylesheet" href="{% static 'css2/glightbox.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css2/style.css' %}">
+	
+	<link rel="stylesheet" href="{% static 'css2/flatpickr.min.css' %}">
+	
+
+	<title>Finwise </title>
+</head>
+<body>
+
+	<div class="site-mobile-menu site-navbar-target">
+		<div class="site-mobile-menu-header">
+			<div class="site-mobile-menu-close">
+				<span class="icofont-close js-menu-toggle"></span>
+			</div>
+		</div>
+		<div class="site-mobile-menu-body"></div>
+	</div>
+
+	<nav class="site-nav">
+		<div class="container">
+			<div class="menu-bg-wrap">
+				<div class="site-navigation">
+					<div class="row g-0 align-items-center">
+						<div class="col-2">
+							<a href="index.html" class="logo m-0 float-start">Finwise<span class="text-primary">.</span></a>
+						</div>
+						<div class="col-8 text-center ">
+						</div>
+						<div class="col-2 text-end">
+							<a href="#" class="burger ms-auto float-end site-menu-toggle js-menu-toggle d-inline-block d-lg-none light">
+								<span></span>
+							</a>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</nav>
+	<div class="hero overlay">
+		<img src="{% static 'images/blob.svg' %}" alt="" class="img-fluid blob">
+		<div class="container">
+			<div class="row align-items-center justify-content-between pt-5">
+				<div class="col-lg-6 text-center text-lg-start pe-lg-5">
+					<h1 class="heading text-white mb-3" data-aos="fade-up">Personalized Financial Solutions</h1>
+					<p class="text-white mb-5" data-aos="fade-up" data-aos-delay="100">Empowering financial success through personalized strategies with our Finwise</p>
+					<div class="align-items-center mb-5 mm" data-aos="fade-up" data-aos-delay="200">
+						<a href="{% url 'login' %}" class="btn btn-outline-white-reverse me-4">Login</a>
+						<a href="{% url 'register' %}" class="btn btn-outline-white-reverse me-4">Register</a>
+					</div>
+				</div>
+				<div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
+					<div class="img-wrap">
+						<img src="{% static 'images/img-1.jpg' %}" alt="Image" class="img-fluid rounded">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	</div>
+	
+	<div class="section">
+		<div class="container">
+			<div class="row justify-content-between">
+				<div class="col-lg-7 mb-4 mb-lg-0">
+					<img src="{% static '/images/img-3.jpg' %}" alt="Image" class="img-fluid rounded">
+				</div>
+				<div class="col-lg-4 ps-lg-2">
+					<div class="mb-5">
+						<h2 class="text-black h4">Effortless Financial Management.</h2>
+						<p>Simplify your financial life by managing expenses, tracking income, and receiving personalized investment suggestions.</p>
+					</div>
+					<div class="d-flex mb-3 service-alt">
+						<div>
+							<span class="bi-wallet-fill me-4"></span>
+						</div>
+						<div>
+							<h3>Expense Tracking</h3>
+							<p>Effortlessly manage and track your expenses with our user-friendly platform.</p>
+						</div>
+					</div>
+					<div class="d-flex mb-3 service-alt">
+						<div>
+							<span class="bi-piggy-bank-fill me-4"></span>
+						</div>
+						<div>
+							<h3>Income Management</h3>
+							<p>Easily track and manage your income sources for a comprehensive financial overview.</p>
+						</div>
+					</div>
+					
+	
+					<div class="d-flex mb-3 service-alt">
+						<div>
+							<span class="bi-pie-chart-fill me-4"></span>
+						</div>
+						<div>
+							<h3>Smart Investments</h3>
+							<p>Receive personalized investment plans tailored to your financial goals and preferences.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="section sec-features">
+		<div class="container">
+			<div class="row g-5">
+				<div class="col-12 col-sm-6 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="0">
+					<div class="feature d-flex">
+						<span class="bi-bag-check-fill"></span>
+						<div>
+							<h3>Expense Tracking</h3>
+							<p>Simplify your financial life by tracking and managing your expenses effortlessly.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-sm-6 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+					<div class="feature d-flex">
+						<span class="bi-wallet-fill"></span>
+						<div>
+							<h3>Income Management</h3>
+							<p>Easily track and manage your income sources for a comprehensive financial overview.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-sm-6 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+					<div class="feature d-flex">
+						<span class="bi-pie-chart-fill"></span>
+						<div>
+							<h3>Personalized Investments</h3>
+							<p>Receive tailored investment plans based on your financial goals and risk tolerance.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-7 order-lg-2 mb-4 mb-lg-0">
+					<img src="{% static '/images/img-1.jpg' %}" alt="Image" class="img-fluid">
+				</div>
+				<div class="col-lg-5 pe-lg-5">
+					<div class="mb-5">
+						<h2 class="text-black h4">Simplify Your Financial Journey</h2>
+					</div>
+					<div class="d-flex mb-3 service-alt">
+						<div>
+							<span class="bi-wallet-fill me-4"></span>
+						</div>
+						<div>
+							<h3>Effortless Expense Management</h3>
+							<p>Simplify your financial life with intuitive tools for managing and tracking your expenses.</p>
+						</div>
+					</div>
+	
+					<div class="d-flex mb-3 service-alt">
+						<div>
+							<span class="bi-pie-chart-fill me-4"></span>
+						</div>
+						<div>
+							<h3>Smart Investment Planning</h3>
+							<p>Explore personalized investment plans tailored to your financial goals and preferences.</p>
+						</div>
+					</div>
+	
+					<div class="d-flex mb-3 service-alt">
+						<div>
+							<span class="bi-piggy-bank-fill me-4"></span>
+						</div>
+						<div>
+							<h3>Secure Income Management</h3>
+							<p>Effortlessly track and manage your income sources for a comprehensive financial overview.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="section sec-services">
+		<div class="container">
+			<div class="row mb-5">
+				<div class="col-lg-5 mx-auto text-center" data-aos="fade-up">
+					<h2 class="heading text-primary">Our Services</h2>
+					<p>Empower your financial journey with our diverse range of services tailored for your needs.</p>
+				</div>
+			</div>
+	
+			<div class="row">
+				<div class="col-12 col-sm-6 col-md-6 col-lg-4" data-aos="fade-up">
+					<div class="service text-center">
+						<span class="bi-cash-coin"></span>
+						<div>
+							<h3>Efficient Payments</h3>
+							<p class="mb-4">Experience faster and hassle-free payments for your financial transactions.</p>
+							<p><a href="#" class="btn btn-outline-primary py-2 px-3">Read more</a></p>
+						</div>
+					</div>
+				</div>
+	
+				<div class="col-12 col-sm-6 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+					<div class="service text-center">
+						<span class="bi-chat-text"></span>
+						<div>
+							<h3>Business Growth</h3>
+							<p class="mb-4">Fuel the growth of your business with strategic financial solutions and advice.</p>
+							<p><a href="#" class="btn btn-outline-primary py-2 px-3">Read more</a></p>
+						</div>
+					</div>
+				</div>
+	
+				<div class="col-12 col-sm-6 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+					<div class="service text-center">
+						<span class="bi-fingerprint"></span>
+						<div>
+							<h3>Smart Investments</h3>
+							<p class="mb-4">Explore investment opportunities tailored to your financial goals and risk tolerance.</p>
+							<p><a href="#" class="btn btn-outline-primary py-2 px-3">Read more</a></p>
+						</div>
+					</div>
+				</div>
+	
+				<!-- Add more services as needed -->
+	
+			</div>
+		</div>
+	</div>
+	
+
+<div class="site-footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4">
+				<div class="widget">
+					<h3>About</h3>
+					<p>Empowering financial success through personalized strategies with our Finwise</p>
+				</div> 
+			</div> <!-- /.col-lg-4 -->
+			<div class="col-lg-4">
+			</div> <!-- /.col-lg-4 -->
+			<div class="col-lg-4">
+				<div class="widget">
+					<h3>Social</h3>
+					<ul class="list-unstyled social">
+						<li><a href="#"><span class="icon-instagram"></span></a></li>
+						<li><a href="#"><span class="icon-twitter"></span></a></li>
+						<li><a href="#"><span class="icon-facebook"></span></a></li>
+						<li><a href="#"><span class="icon-linkedin"></span></a></li>
+						<li><a href="#"><span class="icon-pinterest"></span></a></li>
+						<li><a href="#"><span class="icon-dribbble"></span></a></li>
+					</ul>
+				</div> <!-- /.widget -->
+			</div> <!-- /.col-lg-4 -->
+		</div> <!-- /.row -->
+
+		<div class="row mt-5">
+			<div class="col-12 text-center">
+					
+          </div>
+        </div>
+      </div> 
+    </div> <!-- /.site-footer -->
+
+    <!-- Preloader -->
+    <div id="overlayer"></div>
+    <div class="loader">
+    	<div class="spinner-border text-primary" role="status">
+    		<span class="visually-hidden">Loading...</span>
+    	</div>
+    </div>
+
+	<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+	<script src="{% static 'js/tiny-slider.js' %}"></script>
+	
+	<script src="{% static 'js/flatpickr.min.js' %}"></script>
+	
+	<script src="{% static 'js/aos.js' %}"></script>
+	<script src="{% static 'js/glightbox.min.js' %}"></script>
+	<script src="{% static 'js/navbar.js' %}"></script>
+	<script src="{% static 'js/counter.js' %}"></script>
+	<script src="{% static 'js/custom.js' %}"></script>
+	
+  </body>
+  </html>

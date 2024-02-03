@@ -1,156 +1,138 @@
 <div class="row mt-5">
-<div class="col-md-6">
-<div class="card">
-  <div class="card-body">
-    <h5 class="card-title"></h5>
-    <h6 class="card-subtitle mb-2 text-muted"></h6>
-<canvas id="myChart" width="50" height="50"></canvas>
-  </div>
-</div>
-<script>
-const showChart=(data)=>{
-const [values,labels] = [Object.values(data.category_data).map(item=>item.amount),Object.keys(data.category_data)]
-var ctx = document.getElementById('myChart').getContext('2d');
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Income Distribution</h5>
+        <canvas id="incomeChart" width="50" height="50"></canvas>
+      </div>
+    </div>
+    <script>
+      const showIncomeChart = (data) => {
+        const [values, labels] = [
+          Object.values(data.income_data).map((item) => item.amount),
+          Object.keys(data.income_data),
+        ];
+        var ctxIncome = document.getElementById('incomeChart').getContext('2d');
 
-var myChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      labels: labels,
-      datasets: [
-        {
-          label: "Expense Categories",
-          backgroundColor:   [
-                'rgb(80,151,215)',
-                '#18bc9c',
-                'rgb(231,109, 132)',
-                'rgba(153, 102, 255, 1)',
-                 '#18bc9c'
+        var incomeChart = new Chart(ctxIncome, {
+          type: 'doughnut',
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: 'Income Categories',
+                backgroundColor: [
+                  'rgb(80,151,215)',
+                  '#18bc9c',
+                  'rgb(231,109, 132)',
+                  'rgba(153, 102, 255, 1)',
+                  '#18bc9c',
+                ],
+                data: values,
+              },
             ],
-          data: values
-        }
-      ]
-    },
-    options: {
-      title: {
-        display: true,
-        text: 'Distribution per category (Last 3 months)'
-      }
-    }
-});
+          },
+          options: {
+            title: {
+              display: true,
+              text: 'Income Distribution (Last 3 months)',
+            },
+          },
+        });
+      };
 
+      const getIncomeData = () => {
+        fetch('/income/three_months_summary')
+          .then((res) => res.json())
+          .then((data) => {
+            showIncomeChart(data);
+          });
+      };
 
-
-
-}
-
-const getCategoryData=()=>{
-fetch('/expenses/three_months_summary').then(res=>res.json()).
-then(data=>
-{
-  showChart(data);
-}
-)
-}
-
-
-const getCumulativeIncome=()=>{
-fetch('/expenses/last_3months_expense_source_stats').then(res=>res.json()).
-then(data=>
-{
-  showCMChart(data);
-}
-)
-}
-
-
-window.addEventListener('load',getCategoryData)
-
-window.addEventListener('load',getCumulativeIncome)
-
-
-</script>
-</div><div class="col-md-6">
-
-<div class="card">
-  <div class="card-body">
-<canvas id="cmchart" width="50" height="50"></canvas>
+      window.addEventListener('load', getIncomeData);
+    </script>
   </div>
-	<script>
 
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Source Cumulative Comparison</h5>
+        <canvas id="sourceChart" width="50" height="50"></canvas>
+      </div>
+    </div>
+    <script>
+      const showSourceChart = (data) => {
+        let labels = [];
+        const monthsdata = [];
+        let keys = null;
 
-const showCMChart=(data)=>{
+        for (let i = 0; i < data.cumulative_income_data.length; i++) {
+          const element = data.cumulative_income_data[i];
+          labels.push(Object.keys(element)[0]);
+          const vals = Object.values(element)[0];
+          keys = Object.keys(vals);
+          monthsdata.push(Object.values(vals));
+        }
 
-let labels=[]
-const monthsdata=[]
-let keys=null;
+        var sourceChart = document.getElementById('sourceChart');
+        var dataFirst = {
+          label: 'Source 1',
+          data: monthsdata[0],
+          lineTension: 0,
+          fill: false,
+          borderColor: 'rgb(80,151,215)',
+        };
 
-for(let i=0;i<data.cumulative_income_data.length;i++){
-  const element=data.cumulative_income_data[i]
-  labels.push(Object.keys(element)[0])
-  const vals=Object.values(element)[0]
-  keys=Object.keys(vals)
-  monthsdata.push(Object.values(vals))
-}
+        var dataSecond = {
+          label: 'Source 2',
+          data: monthsdata[1],
+          lineTension: 0,
+          fill: false,
+          borderColor: 'rgb(231,109, 132)',
+        };
 
-const getMonthRep=(dateObj)=>{
-  const strDate=new Date(dateObj).toDateString()
-  const splitted= strDate.split(' ')
-  const values=[splitted[1]+" "+splitted[3]]
-  return values
-}
+        var thirdSecond = {
+          label: 'Source 3',
+          data: monthsdata[2],
+          lineTension: 0,
+          fill: false,
+          borderColor: '#18bc9c ',
+        };
+        var sourceData = {
+          labels: keys,
+          datasets: [dataFirst, dataSecond, thirdSecond],
+        };
 
-var monthCumulative = document.getElementById("cmchart");
-var dataFirst = {
-    label: getMonthRep(labels[0]),
-    data: monthsdata[0],
-    lineTension: 0,
-    fill: false,
-    borderColor: 'rgb(80,151,215)'
-  };
+        var chartOptions = {
+          title: {
+            display: true,
+            text: 'Source Cumulative Comparison (Last 3 months)',
+          },
+          legend: {
+            display: true,
+            position: 'top',
+            labels: {
+              boxWidth: 10,
+            },
+          },
+        };
 
-var dataSecond = {
-    label: getMonthRep(labels[1]),
-    data: monthsdata[1],
-    lineTension: 0,
-    fill: false,
-  borderColor:  'rgb(231,109, 132)',
-  };
+        var sourceChartInstance = new Chart(sourceChart, {
+          type: 'line',
+          data: sourceData,
+          options: chartOptions,
+        });
+      };
 
-  var thirdSecond = {
-    label: getMonthRep(labels[2]),
-    data: monthsdata[2],
-    lineTension: 0,
-    fill: false,
-  borderColor:  '#18bc9c ',
-  };
-var monthsData = {
-  labels: keys,
-  datasets: [dataFirst, dataSecond,thirdSecond]
-};
+      const getSourceData = () => {
+        fetch('/expenses/last_3months_expense_source_stats')
+          .then((res) => res.json())
+          .then((data) => {
+            showSourceChart(data);
+          });
+      };
 
-var chartOptions = {
-      title: {
-        display: true,
-        text: 'Category Cumulative Comparison (Last 3 months)'
-      }
-    ,
-  legend: {
-    display: true,
-    position: 'top',
-    labels: {
-      boxWidth: 10,
-    }
-  }
-};
-
-var lineChart = new Chart(monthCumulative, {
-  type: 'line',
-  data: monthsData,
-  options: chartOptions
-});
-}
-
-	</script>
-</div>
-
+      window.addEventListener('load', getSourceData);
+    </script>
+  </div>
 </div>

@@ -1,0 +1,6 @@
+# SQLite database file
+*.sqlite3
+
+# .pyc files
+__pycache__/
+*.pyc

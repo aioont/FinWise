@@ -38,6 +38,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+
 INSTALLED_APPS = [
     'django.contrib',
     'django.contrib.admin',
@@ -52,6 +53,7 @@ INSTALLED_APPS = [
     'settings',
     'authentication',
     'six',
+    'portfolio',
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,21 @@
+<!-- remove_investment.html -->
+{% extends 'base.html' %}  <!-- Assuming you have a base template -->
+
+{% block content %}
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">Remove Investment - {{ investment.name }}</div>
+          <div class="card-body">
+            <p>Are you sure you want to remove the investment '{{ investment.name }}'? This action cannot be undone.</p>
+            <form method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger">Remove Investment</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

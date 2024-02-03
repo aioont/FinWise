@@ -1,0 +1,21 @@
+<!-- add_investment.html -->
+{% extends 'base.html' %}  <!-- Assuming you have a base template -->
+
+{% block content %}
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">Add Investment</div>
+          <div class="card-body">
+            <form method="post" class="form">
+              {% csrf_token %}
+              {{ form.as_p }}
+              <button type="submit" class="btn btn-primary">Add Investment</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

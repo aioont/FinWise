@@ -18,7 +18,7 @@
 </div>
 
 <div class="col-md-2">
-<a type="button" href="{% url 'expenses_add'%}" class="btn btn-outline-success" >New Expense</a>
+<a type="button" href="" class="btn btn-outline-success" >New Expense</a>
   </div>
 </div>
 </div>
@@ -30,19 +30,19 @@
 {% if not expenses.count %}
 <div class="my-1 p-5">
 <h3>No Expense yet </h3>
-<a href="{% url 'expenses_add' %}">Submit your first</a>
+<a href="">Submit your first</a>
 </div>
 
 {% else %}
     <div class="row">
         <div class="col-lg-4 col-md-4">
-            <a href="{% url 'export-excel' %}" class="btn btn-primary"> Download Excel</a>
+            <a href="{" class="btn btn-primary"> Download Excel</a>
         </div>
         <div class="col-md-4">
-            <a href="{% url 'export-csv' %}" class="btn btn-warning"> Download CSV</a>
+            <a href="" class="btn btn-warning"> Download CSV</a>
         </div>
         <div class="col-md-4">
-            <form method="GET" action="{% url 'export-pdf' %}">
+            <form method="GET" action="{">
                 <input name="download"
                        class="btn btn-info btn-very-small"
                        type="submit"
@@ -91,7 +91,7 @@
         <td>{{ex.category }}</td>
       <td>{{ex.date|date:'d/m/Y' }}</td>
 <td>
- <a type="button" class="btn btn-outline-success btn-sm"  href={%  url 'expense_edit' ex.id %}>Edit</a>
+ <a type="button" class="btn btn-outline-success btn-sm"  href="">Edit</a>
  <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#exampleModal">X</button>
 
  <div class="modal" tabindex="-1" role="dialog" id="exampleModal">

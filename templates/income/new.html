@@ -5,59 +5,53 @@
 <!-- Alerts -->
 
 <section id="dashboard" class="py-4">
-  <div class="container">
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="{% url 'income' %}">Income</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Add Income</li>
-  </ol>
-</nav>
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Income</h5>
-      </div>
-      <div class="modal-body">
-            <form action="{%url 'income_add'%}" method="POST" autocomplete="off">
-              {% csrf_token%}
-{% include 'partials/_alerts.html'%}
-          <div class="form-group">
-            <label for="amount" class="col-form-label">Amount:</label>
-            <input type="number" name="amount"   value="{{values.amount}}" class="form-control" id="amount">
-          </div>
-            <div class="form-group">
-                  <label for="exampleFormControlSelect1">Currency</label>
-                  <select class="form-control" name="currency" id="currency" {% if settings.currency%}disabled>
-                    <option name="currency"  selected  value={{settings.currency}}>{{settings.currency}}</option>
-{% else %}
- {% for currency in  currencies%}
-                    <option name="currency"   value={{currency.name}}>{{currency.name}} - {{currency.value}} </option>
-                    {% endfor %}
-
-
-                  {% endif %}>
-
-                  </select>
-           </div>
-          <div class="form-group">
-              <label for="source">Source:</label>
-              <input type="text" name="source" class="form-control" id="source" value="{{ values.source }}">
-          </div>
-              
-          <div class="form-group">
-            <label for="description"  class="col-form-label">Description:</label>
-            <textarea class="form-control" name="description" id="description">{{values.description}} </textarea>
-          </div>
-            <div class="form-group">
-            <label for="date"  class="col-form-label">Date of Income:</label>
-            <input type="date" class="form-control" name="in_date"  value={{values.i_date}}  id="date"></input>
-          </div>
-        <input type="submit" class="btn btn-primary" value="Submit">
-      </div>
-
-
-        </form>
-
-</div>
-  </div>
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'income' %}">Income</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Add Income</li>
+            </ol>
+        </nav>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Income</h5>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'income_add'%}" method="POST" autocomplete="off">
+                    {% csrf_token%}
+                    {% include 'partials/_alerts.html'%}
+                    <div class="form-group">
+                        <label for="amount" class="col-form-label">Amount:</label>
+                        <input type="number" name="amount" value="{{values.amount}}" class="form-control" id="amount" placeholder="Enter amount">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Currency</label>
+                        <select class="form-control" name="currency" id="currency" {% if settings.currency%}disabled>
+                            <option name="currency" selected value={{settings.currency}}>{{settings.currency}}</option>
+                            {% else %}
+                            {% for currency in  currencies%}
+                            <option name="currency" value={{currency.name}}>{{currency.name}} - {{currency.value}} </option>
+                            {% endfor %}
+                            {% endif %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="source">Source:</label>
+                        <input type="text" name="source" class="form-control" id="source" value="{{ values.source }}" placeholder="Enter source">
+                    </div>
+                    <div class="form-group">
+                      <label for="description" class="col-form-label">Description:</label>
+                      <textarea class="form-control" name="description" id="description" placeholder="Enter description">{{values.description}}</textarea>
+                  </div>
+                  
+                    <div class="form-group">
+                        <label for="date" class="col-form-label">Date of Income:</label>
+                        <input type="date" class="form-control" name="in_date" value={{values.i_date}} id="date" placeholder="Select date"></input>
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Submit">
+                </form>
+            </div>
+        </div>
+    </div>
 </section>
 {%endblock%}

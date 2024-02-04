@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-3">
+    {% include 'partials/_alerts.html' %}
+
+    <h3>Account Information</h3>
+
+    <!-- Display user account information -->
+    <dl class="row">
+        <dt class="col-sm-3">Username:</dt>
+        <dd class="col-sm-9">{{ user.username }}</dd>
+
+        <dt class="col-sm-3">Email:</dt>
+        <dd class="col-sm-9">{{ user.email }}</dd>
+
+        <!-- Add more fields as needed -->
+    </dl>
+
+    <p class="lead">Additional Information:</p>
+
+    <!-- Display other data from the database -->
+    <dl class="row">
+        <dt class="col-sm-3">First Name:</dt>
+        <dd class="col-sm-9">{{ user.first_name }}</dd>
+
+        <dt class="col-sm-3">Last Name:</dt>
+        <dd class="col-sm-9">{{ user.last_name }}</dd>
+
+        <!-- Add more fields as needed -->
+    </dl>
+
+    <!-- Add the "Update Account" button -->
+    <a href="{% url 'update_account' %}" class="btn btn-primary">Update Account</a>
+</div>
+{% endblock content %}

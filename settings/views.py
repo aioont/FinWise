@@ -1,9 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import json
 import os
 from .models import Setting
 from django.contrib import messages
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
 
@@ -34,3 +36,21 @@ def index(request):
 
 def account(request):
     return render(request, 'settings/account.html')
+
+@login_required
+def update_account(request):
+    if request.method == 'POST':
+        # Get the form data
+        full_name = request.POST['full_name']
+        last_name = request.POST['last_name']
+
+        # Update the user's additional information
+        request.user.first_name = full_name
+        request.user.last_name = last_name
+        request.user.save()
+
+        messages.success(request, 'Account information updated successfully!')
+        return redirect('account-settings')
+
+    return render(request, 'settings/update_account.html')
+

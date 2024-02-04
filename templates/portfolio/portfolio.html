@@ -2,69 +2,447 @@
 
 {% extends 'base.html' %}
 {% block content %}
-<style>
-    @media only screen and (max-width: 768px) {
-    /* Add classes or IDs to the fields you want to hide */
-    .hide-on-small-screen {
-        display: none;
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap">
+
+  <style>
+    body {
+      font-family: 'Lexend', sans-serif;
+      margin: 20px;
+      background-color: #f4f4f4;
+      color: #333;
     }
-}
-</style>
-<section id="portfolio">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h2 class="text-center mb-4">Your Investment Portfolio</h2>
 
-                <div class="card">
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th scope="col" >#</th>
-                                        <th scope="col" class="hide-on-small-screen">Investment Name</th>
-                                        <th scope="col">Symbol</th>
-                                        <th scope="col">Quantity</th>
-                                        <th scope="col">Purchase Price</th>
-                                        <th scope="col">Current Price</th>
-                                        <th scope="col">Total Value</th>
-                                        <th scope="col">Edit</th>
-                                        <th scope="col">Remove</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for investment in investments %}
+    .container {
+      max-width: 95%;
+      margin: 0 auto;
+    }
+
+    .row, .three-column-row {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .cell, .three-column-cell {
+      position: relative;
+      flex: 1;
+      text-align: center;
+      padding: 20px;
+      background-color: #fff;
+      transition: background-color 0.3s ease;
+    }
+
+    .three-column-cell {
+      text-align: left; /* Align heading to the left */
+      border-radius: 2px;
+      box-shadow: 0px 0px 1px #2f343e, 0px 0px 2px #2f343e;
+      margin: 5px;
+    }
+
+    .cell:hover, .three-column-cell:hover {
+      background-color: #f0f0f0;
+    }
+
+    h3, .column-heading {
+      margin-bottom: 5px;
+      color: rgb(81, 86, 95);
+    }
+
+    .text-content, .graph-container {
+      margin-top: 10px;
+      color: #666;
+      border: none;
+    }
+
+    .graph-container {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .graph, .text-content {
+      flex: 1;
+      padding: 10px;
+      text-align: center;
+      margin: 5px;
+      background-color: #fff;
+      transition: background-color 0.3s ease;
+    }
+
+    .graph:hover, .text-content:hover {
+      background-color: #f0f0f0;
+    }
+
+    .svg-icon {
+      width: 20px;
+      height: 20px;
+      fill: #333;
+    }
+
+    .same-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center; /* Align items vertically in the same line */
+    }
+
+    .last-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .column1 {
+      flex: 1;
+      padding: 10px;
+      margin: 5px;
+      text-align: center;
+      display: flex;
+    }
+
+    .column1 svg {
+      width: 50px;
+      height: 50px;
+      fill: #333;
+    }
+
+    .column1 h2,svg {
+        margin: auto;
+    }
+
+    .column2 {
+      flex: 1;
+      padding: 20px;
+      margin: 10px;
+      text-align: center;
+    }
+
+    .last-column-heading {
+      font-size: 18px;
+      color: #007BFF;
+      margin-bottom: 10px;
+    }
+
+    .last-text-content {
+      margin-top: 10px;
+      color: #666;
+    }
+
+    .percentage-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .percentage-column {
+      flex: 1;
+      padding: 10px;
+      text-align: center;
+      margin: 5px;
+      background-color: #fff;
+    }
+
+    .svg-fill {
+        fill: #16856f !important;
+    }
+
+  </style>
+ 
+
+  <div class="container">
+    <div class="row">
+        <div class="cell">
+            <h2>{{ nifty_data.nifty_bank_value }}</h2>
+            <p class="text-content">NIFTY BANK</p>
+            <span>{{ nifty_data.nifty_bank_change }}</span>
+        </div>
+        <div class="cell">
+            <h2>{{ nifty_data.nifty_next50_value }}</h2>
+            <p class="text-content">NIFTYNEXT50</p>
+            <span>{{ nifty_data.nifty_next50_change }}</span>
+        </div>
+        <div class="cell">
+            <h2>{{ nifty_data.nifty_midcap_value }}</h2>
+            <p class="text-content">NIFTY MIDCAP SELECT</p>
+            <span>{{ nifty_data.nifty_midcap_change }}</span>
+        </div>
+        <div class="cell">
+            <h2>{{ nifty_data.nifty_financial_value }}</h2>
+            <p class="text-content">NIFTY FINANCIAL SERVICES</p>
+            <span>{{ nifty_data.nifty_financial_change }}</span>
+        </div>
+        <div class="cell" style="background-color: greenyellow;">
+            <h2>Portfolio Value</h2>
+            <p class="text-content">Rs. {{ portfolio_value|floatformat:2 }}</p>
+        </div>
+
+    </div>
+    
+
+    <!-- Second Row -->
+    <div class="three-column-row">
+      <div class="three-column-cell">
+        <div class="same-line">
+            <h3 class="column-heading">Invested</h3>
+            <a href="#">
+                
+            </a>
+        </div>
+        <div class="graph-container">
+          <div class="graph">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="60" fill="currentColor" class="bi bi-wallet2" viewBox="0 0 16 16">
+                <path d="M12.136.326A1.5 1.5 0 0 1 14 1.78V3h.5A1.5 1.5 0 0 1 16 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-9a1.5 1.5 0 0 1 1.432-1.499zM5.562 3H13V1.78a.5.5 0 0 0-.621-.484zM1.5 4a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5z"/>
+              </svg>
+          </div>
+          <h2>Rs. {{ total_invested }}</h2>
+        </div>
+      </div>
+      <div class="three-column-cell">
+        <div class="same-line">
+            <h3 class="column-heading">Balance</h3>
+            <a href="#">
+                
+            </a>
+        </div>
+        <div class="graph-container">
+            <div class="graph">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="60" fill="currentColor" class="bi bi-wallet-fill" viewBox="0 0 16 16">
+                    <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v2h6a.5.5 0 0 1 .5.5c0 .253.08.644.306.958.207.288.557.542 1.194.542s.987-.254 1.194-.542C9.42 6.644 9.5 6.253 9.5 6a.5.5 0 0 1 .5-.5h6v-2A1.5 1.5 0 0 0 14.5 2z"/>
+                    <path d="M16 6.5h-5.551a2.7 2.7 0 0 1-.443 1.042C9.613 8.088 8.963 8.5 8 8.5s-1.613-.412-2.006-.958A2.7 2.7 0 0 1 5.551 6.5H0v6A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5z"/>
+                  </svg>
+              </div>
+          <h3>{{ total_balance }}</h3>
+        </div>
+      </div>
+      <div class="three-column-cell">
+        <div class="same-line">
+            <h3 class="column-heading">Profit and Loss</h3>
+            <a href="#">
+               
+            </a>
+        </div>
+        <div class="graph-container">
+            <div class="graph">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="60" fill="currentColor" class="bi bi-cash-coin" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8m5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0"/>
+                    <path d="M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668zm1.36-1.354c-.369-.085-.569-.26-.569-.522 0-.294.216-.514.572-.578v1.1zm.432.746c.449.104.655.272.655.569 0 .339-.257.571-.709.614v-1.195z"/>
+                    <path d="M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083q.088-.517.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1z"/>
+                    <path d="M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 6 6 0 0 1 3.13-1.567"/>
+                  </svg>
+              </div>
+              <h3>{{ total_profit_loss|floatformat:2 }}</h3>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Third Row -->
+    <div class="three-column-row">
+      <div class="three-column-cell">
+        <div class="same-line">
+            <h3 class="column-heading">Column 1</h3>
+            <a href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sliders svg-icon" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1z"/>
+                </svg>
+            </a>
+        </div>
+        <div class="graph-container">
+                <div class="last-row">
+                  <div class="column1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-award svg-fill" viewBox="0 0 16 16">
+                        <path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702z"/>
+                        <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1z"/>
+                    </svg>
+                  </div>
+            
+                  <div class="column1">
+                    <h2 class="last-column-heading">Overall Status</h2>
+                  </div>
+            
+                  <div class="column2">
+                    <h2 class="last-column-heading"> Details</h2>
+                    <div class="percentage-container">
+                      <div class="percentage-column">
+                        <p>50%</p>
+                        <span class="last-text-content">Text for 50%</span>
+                      </div>
+                      <div class="percentage-column">
+                        <p>75%</p>
+                        <span class="last-text-content">Text for 75%</span>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+
+        </div>
+      </div>
+      <div class="three-column-cell">
+        <div class="same-line">
+            <h3 class="column-heading">Column 1</h3>
+            <a href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#" class="bi bi-sliders svg-icon" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1z"/>
+                </svg>
+            </a>
+        </div>
+        <div class="graph-container">
+          <div class="text-content">
+            <h2>
+                <b>Text B1</b>
+            </h2>
+            <span class="last-text-content">Some text</span>
+        </div>
+          <div class="text-content same-line">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                    <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                  </svg>
+                <b>Text B2</b>
+            </h2>
+          </div>
+        </div>
+        <div class="graph-container">
+            <div class="text-content text-bold">
+                <h2><b>Text B3</b></h2>
+                <span class="last-text-content">Some text</span>
+            </div>
+            <div class="text-content same-line">
+                <h2>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                        <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                    </svg>
+                    <b>Text B4</b>
+                </h2>
+            </div>
+          </div>
+      </div>
+      <div class="three-column-cell">
+        <div class="same-line">
+            <h3 class="column-heading">Total Assest Value</h3>
+        </div>
+        <div class="graph-container">
+          <div class="text-content">
+            <h1><b>$230</b></h1>
+            <div class="same-line">
+            <h3>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                    <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                  </svg>
+                  5.39%
+            </h3>
+        </div>
+        </div>
+          <div class="text-content">
+             <img src="./img/AssManGraphLastBar.jpg">
+          </div>
+        </div>
+      </div>
+    </div>
+
+     
+    <style>
+        /* Responsive styles for small screens */
+        @media only screen and (max-width: 768px) {
+            .hide-on-small-screen {
+                display: none;
+            }
+        }
+    
+        /* Additional styling for the table and buttons */
+        #portfolio {
+            padding: 50px 0;
+            background-color: #f8f9fa;
+        }
+    
+        .card {
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    
+        .table {
+            background-color: #fff;
+        }
+    
+        .table th, .table td {
+            text-align: center;
+        }
+    
+        .table th {
+            background-color: #343a40;
+            color: #fff;
+        }
+    
+        .table-hover tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+    
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+    
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+    </style>
+    
+    <section id="portfolio">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="text-center mb-4">Your Investment Portfolio</h2>
+    
+
+                    <div class="mt-4 text-center">
+                        <a href="{% url 'add_investment' %}" class="btn btn-primary">Add New Investment</a>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
                                         <tr>
-                                            <th scope="row">{{ forloop.counter }}</th>
-                                            <td>{{ investment.name }}</td>
-                                            <td>{{ investment.symbol }}</td>
-                                            <td>{{ investment.quantity }}</td>
-                                            <td>{{ investment.purchase_price }}</td>
-                                            <td>{{ investment.current_price|default:"N/A" }}</td>
-                                            <td>{{ investment.total_price }}</td>
-
-                                            <td><a href="{% url 'update_investment' investment_id=investment.id %}">Update</a></td>
-                                            <td><a href="{% url 'remove_investment' investment_id=investment.id %}">Remove</a></td>
+                                            <th scope="col">#</th>
+                                            <th scope="col" class="hide-on-small-screen">Investment Name</th>
+                                            <th scope="col">Symbol</th>
+                                            <th scope="col">Quantity</th>
+                                            <th scope="col">Purchase Price</th>
+                                            <th scope="col">Current Price</th>
+                                            <th scope="col">Total Value</th>
+                                            <th scope="col">Edit</th>
+                                            <th scope="col">Remove</th>
                                         </tr>
-                                    {% endfor %}
-                                </tbody>
-                                
-                            </table>
-                        </div>
+                                    </thead>
+                                    <tbody>
+                                        {% for investment in investments %}
+                                            <tr>
+                                                <th scope="row">{{ forloop.counter }}</th>
+                                                <td class="hide-on-small-screen">{{ investment.name }}</td>
+                                                <td>{{ investment.symbol }}</td>
+                                                <td>{{ investment.quantity }}</td>
+                                                <td>{{ investment.purchase_price }}</td>                                                <td>{{ investment.current_price|default:"N/A"|floatformat:2 }}</td>
+                                                <td>{{ investment.total_price|floatformat:2 }}</td>
 
-                        <div class="text-center mt-3">
-                            <h4 style="color: green">Total Portfolio Value: {{ portfolio_value }}</h4>
+                                                <td><a href="{% url 'update_investment' investment_id=investment.id %}" class="btn btn-sm btn-primary">Update</a></td>
+                                                <td><a href="{% url 'remove_investment' investment_id=investment.id %}" class="btn btn-sm btn-danger">Remove</a></td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+    
+                            <div class="text-center mt-3">
+                                <h4 style="color: green">Total Portfolio Value: {{ portfolio_value|floatformat:2 }}</h4>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="mt-4 text-center">
-                    <a href="{% url 'add_investment' %}" class="btn btn-primary">Add New Investment</a>
+    
+                    
                 </div>
             </div>
         </div>
-    </div>
-</section>
-
+    </section>
+    
 {% endblock %}

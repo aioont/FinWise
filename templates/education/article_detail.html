@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ article.title }}</title>
+</head>
+<body>
+    <h1>{{ article.title }}</h1>
+
+    <div class="article">
+        <img src="{{ article.image.url }}" alt="{{ article.title }}">
+        <p>{{ article.content }}</p>
+        <!-- You can add more details or customize the display as needed -->
+    </div>
+</body>
+</html>

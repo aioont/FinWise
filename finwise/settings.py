@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'authentication',
     'six',
     'portfolio',
+    'education',
 ]
 
 MIDDLEWARE = [
